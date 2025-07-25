@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>DVC Plot</title>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.18.2"></script>
+    
+    <style>
+        table {
+            border-spacing: 15px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id = "history_json">
+        <script type = "text/javascript">
+            var spec = {"$schema": "https://vega.github.io/schema/vega-lite/v5.json", "data": {"values": [{"accuracy": 0.7044786214828491, "epochs": 0, "rev": "data_model_v2"}, {"accuracy": 0.8822987079620361, "epochs": 1, "rev": "data_model_v2"}, {"accuracy": 0.9225891828536987, "epochs": 2, "rev": "data_model_v2"}, {"accuracy": 0.9431667327880859, "epochs": 3, "rev": "data_model_v2"}, {"accuracy": 0.950659990310669, "epochs": 4, "rev": "data_model_v2"}, {"accuracy": 0.6577324271202087, "epochs": 0, "rev": "data_model_v3"}, {"accuracy": 0.8543431758880615, "epochs": 1, "rev": "data_model_v3"}, {"accuracy": 0.899360179901123, "epochs": 2, "rev": "data_model_v3"}, {"accuracy": 0.9246642589569092, "epochs": 3, "rev": "data_model_v3"}, {"accuracy": 0.9312352538108826, "epochs": 4, "rev": "data_model_v3"}]}, "title": {"text": "history.json", "anchor": "middle"}, "width": 300, "height": 300, "params": [{"name": "smooth", "value": 0.001, "bind": {"input": "range", "min": 0.001, "max": 1, "step": 0.001}}], "encoding": {"x": {"field": "epochs", "type": "quantitative", "title": "epochs"}, "color": {"field": "rev", "scale": {"domain": ["data_model_v2", "data_model_v3"], "range": ["#945dd6", "#13adc7"]}}, "strokeDash": {}}, "layer": [{"layer": [{"params": [{"name": "grid", "select": "interval", "bind": "scales"}], "mark": "line"}, {"transform": [{"filter": {"param": "hover", "empty": false}}], "mark": "point"}], "encoding": {"y": {"field": "accuracy", "type": "quantitative", "title": "accuracy", "scale": {"zero": false}}, "color": {"field": "rev", "type": "nominal"}}, "transform": [{"loess": "accuracy", "on": "epochs", "groupby": ["rev"], "bandwidth": {"signal": "smooth"}}]}, {"mark": {"type": "line", "opacity": 0.2}, "encoding": {"x": {"field": "epochs", "type": "quantitative", "title": "epochs"}, "y": {"field": "accuracy", "type": "quantitative", "title": "accuracy", "scale": {"zero": false}}, "color": {"field": "rev", "type": "nominal"}}}, {"mark": {"type": "circle", "size": 10}, "encoding": {"x": {"aggregate": "max", "field": "epochs", "type": "quantitative", "title": "epochs"}, "y": {"aggregate": {"argmax": "epochs"}, "field": "accuracy", "type": "quantitative", "title": "accuracy", "scale": {"zero": false}}, "color": {"field": "rev", "type": "nominal"}}}, {"transform": [{"calculate": "datum.rev", "as": "pivot_field"}, {"pivot": "pivot_field", "op": "mean", "value": "accuracy", "groupby": ["epochs"]}], "mark": {"type": "rule", "tooltip": {"content": "data"}, "stroke": "grey"}, "encoding": {"opacity": {"condition": {"value": 0.3, "param": "hover", "empty": false}, "value": 0}}, "params": [{"name": "hover", "select": {"type": "point", "fields": ["epochs"], "nearest": true, "on": "mouseover", "clear": "mouseout"}}]}]};
+            vegaEmbed('#history_json', spec);
+        </script>
+    </div>
+    
+</body>
+</html>
