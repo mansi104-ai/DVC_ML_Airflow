@@ -1,0 +1,18 @@
+stages:
+  train-and-evaluate:
+    cmd: python train_evaluate.py twitter_1.csv
+    deps:
+    - train_evaluate.py
+    - twitter_1.csv
+    params:
+    - train.lstm_out
+    outs:
+    - model.h5
+    metrics:
+    - evaluation.json:
+        cache: false
+    plots:
+    - history.json:
+        cache: false
+        x: epochs
+        y: accuracy
